@@ -1,15 +1,14 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-export function getSupabase() {
+export function getSupabase(): SupabaseClient {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 }
 
-// Singleton dla client-side usage
-let _client: ReturnType<typeof createClient> | null = null;
-export function supabaseClient() {
+let _client: SupabaseClient | null = null;
+export function supabaseClient(): SupabaseClient {
   if (!_client) _client = getSupabase();
   return _client;
 }
